@@ -238,7 +238,8 @@ tbody tr:hover{background:#eef5ff}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
 /* Shared live-data controls and the accessible retirement editor. */
 .brand-icon{font-size:0}
-.brand-icon::before{content:"W";font-size:23px;font-weight:850;line-height:1;letter-spacing:-2px;margin-left:-2px}
+.brand-icon svg{display:block;flex:none}
+.icon-tile{font-family:"DejaVu Sans","Noto Sans Symbols2","Segoe UI Symbol","Noto Color Emoji",sans-serif}
 .data-mode{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px 18px;margin:0 0 22px}
 .data-mode-live{background:#edfaf1;border-color:#ccead5;color:#23663a}
 .text-button{appearance:none;background:transparent;border:0;color:var(--primary);font-weight:650;font-size:12px;padding:5px 2px;line-height:1.5;text-align:inherit}

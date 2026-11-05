@@ -43,8 +43,11 @@
     banner.setAttribute('aria-label', 'Data source');
     const text = document.createElement('span');
     const isPlanner = Boolean(document.querySelector('#projectedCorpus'));
+    const isGallery = Boolean(document.querySelector('.gallery-grid'));
     text.textContent = isPlanner
       ? 'Planning assumptions · Edit these values for your situation. The corpus is entered manually and is independent of your CAS.'
+      : isGallery
+        ? 'Design previews · These screenshots show sample data. Open a page to explore it.'
       : dataset
         ? 'Your imported CAS · Available in this browser session only.'
         : 'Sample data · These figures show the design. Upload your CAS to see your investments.';
@@ -57,7 +60,7 @@
       const clear = document.createElement('button');
       clear.type = 'button';
       clear.className = 'text-button';
-      clear.textContent = 'Clear session';
+      clear.textContent = 'Clear data';
       clear.addEventListener('click', () => {
         if (typeof window.WealthData?.clear === 'function') window.WealthData.clear();
         else sessionStorage.removeItem('wealth-cas-data-v1');
