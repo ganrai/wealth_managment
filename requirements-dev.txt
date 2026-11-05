@@ -1,0 +1,2 @@
+# Browser validation and screenshot generation only; the deployed app is static.
+playwright==1.62.0

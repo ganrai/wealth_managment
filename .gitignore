@@ -1,0 +1,6 @@
+node_modules/
+js/vendor/
+__pycache__/
+*.pyc
+.test-results/
+.venv/

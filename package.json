@@ -1,0 +1,23 @@
+{
+  "name": "wealth-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Private, browser-based CAS portfolio dashboard",
+  "scripts": {
+    "build:vendor": "node scripts/build-vendor.mjs",
+    "build": "npm run build:vendor && python3 build_pages.py",
+    "start": "python3 -m http.server 8000 --bind 127.0.0.1",
+    "test": "python3 tests/smoke_test.py",
+    "previews": "python3 render_previews.py"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "dependencies": {
+    "@chikatina/casparser-js": "1.0.0",
+    "pdfjs-dist": "6.3.289"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}
