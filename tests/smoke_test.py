@@ -103,6 +103,7 @@ def main():
         assert "Coaching" in page.locator("#goalDetail").inner_text()
         print("PASS: goal selection updates accessible selection and detail")
 
+        page.goto(f"{origin}/upload.html")
         page.evaluate("""data => {
             // Use runtime configuration without checking private folio numbers
             // into the test fixture.
@@ -111,9 +112,14 @@ def main():
             data.schemes[3].folio = WealthData.config.liquid.folios[0];
             data.password = 'never-store-this';
             data.rawPdf = 'never-store-raw-pdf';
-            WealthData.save(data);
+            // Isolate the successful form/navigation path from the PDF format
+            // parser, whose real imports and rejection path were tested above.
+            WealthData.parseFiles = async () => data;
         }""", DATA)
-        page.goto(f"{origin}/total-assets.html")
+        page.locator('#casFiles').set_input_files({"name": "synthetic-cas.pdf", "mimeType": "application/pdf", "buffer": b"synthetic test input"})
+        page.locator('#pdfPassword').fill('synthetic-password')
+        page.locator('button[type="submit"]').click()
+        page.wait_for_url(f"{origin}/total-assets.html")
         summary = page.locator(".asset-summary").inner_text()
         assert "₹18,200" in summary and "₹17,000" in summary, summary
         page.goto(f"{origin}/portfolio.html")
@@ -132,7 +138,7 @@ def main():
         page.evaluate("WealthData.clear()")
         assert page.evaluate("WealthData.load()") is None
         assert not errors, errors
-        print("PASS: saved synthetic CAS navigation, correct totals, education/liquid separation, goal filtering and clear")
+        print("PASS: synthetic upload/navigation, correct totals, education/liquid separation, goal filtering and clear")
         context.close()
 
 
